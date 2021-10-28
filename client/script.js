@@ -174,8 +174,19 @@ document.getElementById('query-button').addEventListener('click', newQuery)
     In the function that you wrote for Problem 8, change the URL to test a couple different scenarios. 
 
     1: Send no queries on the URL -- what happened? 
+    /you're going to get an error back if you do, query-test111? for instance since this isn't identified in the backend server
 
     2: Send more than 1 query on the URL -- what happened? 
+    /query-test?key=value&key=value
+    /?key=value&key=value is fine I think depending on if its a folder in the backend
+    /------? is the end point actually, 
+    /repeat (endpoint)/:repeat and hten it'll grab the param with .param
+    '/endpoint/:param' --> This is for params, ALWAYS with /:'
+    //*******
+    
+    
+    
+    */
 */
 
 // Edit code in Problem 8
@@ -210,3 +221,9 @@ document.getElementById('query-button').addEventListener('click', newQuery)
 
 // CODE HERE 
 
+function createFood() {
+    let foodInput = document.querySelectorAll('input')
+    body = {
+        newFood: foodInput,
+    }
+}

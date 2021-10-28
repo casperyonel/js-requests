@@ -2,15 +2,16 @@
 //THE TEST SERVER IS RUNNING ON LOCALHOST:3000//
 ////////////////////////////////////////////////
 
+// const baseURL = 
+
 // PROBLEM 1
 /*
     In the index.html file in this folder there is a button with an id of 'say-hello-button'!
-
     Use querySelector to select that button and save it to a variable called sayHelloButton
 */
 
 // CODE HERE
-
+let sayHelloButton = document.querySelector('#say-hello-button')
 
 // PROBLEM 2
 /*
@@ -20,7 +21,12 @@
 */
 
 // CODE HERE
+function changeColor() {
+    sayHelloButton.style.backgroundColor = 'black'
+    sayHelloButton.style.color = 'white'
+}
 
+sayHelloButton.addEventListener('mouseover', changeColor)
 
 // PROBLEM 3
 /*
@@ -32,7 +38,12 @@
 */
 
 // CODE HERE
+function changeColorBack() {
+    sayHelloButton.style.backgroundColor = '#EFEFEF'
+    sayHelloButton.style.color = 'black'
+}
 
+sayHelloButton.addEventListener('mouseout', changeColorBack)
 
 // PROBLEM 4
 /*
@@ -43,17 +54,18 @@
 
 // DO NOT EDIT FUNCTION
 const sayHello = () => {
-    axios.get('http://localhost:3000/say-hello').then((res) => {
-        let helloText = document.getElementById('hello-text');
-        helloText.style.display = 'block';
-        helloText.style.backgroundColor = 'green';
-        helloText.textContent = res.data;
-    })
+    axios.get('http://localhost:3000/say-hello')
+        .then((res) => {
+            let helloText = document.getElementById('hello-text');
+            helloText.style.display = 'block';
+            helloText.style.backgroundColor = 'green';
+            helloText.textContent = res.data;
+        })
 }
 // DO NOT EDIT FUNCTION
 
 // CODE HERE
-
+sayHelloButton.addEventListener('click', sayHello)
 
 // PROBLEM 5 
 /*
@@ -67,7 +79,15 @@ const sayHello = () => {
 */ 
 
 const ohMy = () => {
-    // YOUR CODE HERE
+    axios.get('http://localhost:3000/animals')
+        .then(response => {
+            for (let i = 0; i < response.data.length; i++) {
+                document.querySelector('body').append(document.createElement('p').textContent = response.data[i])
+            }
+        })
+        .catch(error => {
+        console.log(error)
+        })
 }
 
 document.getElementById('animals-button').addEventListener('click', ohMy)
@@ -87,8 +107,18 @@ document.getElementById('animals-button').addEventListener('click', ohMy)
 */
 
 const repeatMyParam = () => {
-    //YOUR CODE HERE
+    axios.get('http://localhost:3000/repeat/param')
+    .then(response => {
+        document.getElementById('repeat-text').textContent = response.data
+        document.getElementById('repeat-text').style.display = 'block'
+        console.log(response.data)
+        })
+    .catch(error => {
+        console.log(error)
+    })
 }
+
+document.querySelector('#repeat-button').addEventListener('click', repeatMyParam)
 
 // PROBLEM 7
 /*
@@ -112,6 +142,18 @@ const repeatMyParam = () => {
 
 // CODE HERE
 
+function newQuery () {
+    axios.get('http://localhost:3000/query-test?key=value&key2=value')
+    //query-test is the param and we use key value pairs to further idenitfy what we want 
+    .then(response => {
+        console.log(response.data)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+document.getElementById('query-button').addEventListener('click', newQuery)
 
 
 ////////////////
@@ -146,15 +188,18 @@ const repeatMyParam = () => {
 
 //PROBLEM 11
 /*
-    You are going to add the ability to POST to the server. You'll need to create a small form and write a function that makes a post request. Then you'll attach that function to the submit event on the form. We'll be creating a list of foods. 
+    You are going to add the ability to POST to the server. You'll need to create a small form and write a function that makes a post request. 
+    Then you'll attach that function to the submit event on the form. We'll be creating a list of foods. 
 
-    In the index.html file inside of the client folder, create a form with one text input field and a button. The input field should have a placeholder that tells the user to enter a food. And the button should indicate that it will add food into a list. 
+    In the index.html file inside of the client folder, create a form with one text input field and a button. The input field should have a placeholder 
+    that tells the user to enter a food. And the button should indicate that it will add food into a list. 
 
     In this file (script.js), create a function called createFood. 
     
     Inside the function, select the input you just created in the HTML and save it to a variable called foodInput. 
     
-    Next, create an object called body inside the function. It should have one key-value pair. The key should be newFood (make sure to match the case and spelling exactly) and the value should be the value of the food input. 
+    Next, create an object called body inside the function. It should have one key-value pair. The key should be newFood (make sure to match the case and 
+        spelling exactly) and the value should be the value of the food input. 
 
     Now make an axios post request to /food. Inside the parentheses where you passed the URL in, pass in body as the second argument. 
 
@@ -164,3 +209,4 @@ const repeatMyParam = () => {
 */
 
 // CODE HERE 
+
